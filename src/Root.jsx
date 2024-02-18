@@ -1,9 +1,14 @@
+import { useEffect } from "react";
 import { Form, Link, NavLink, Outlet, useLoaderData, useNavigate, useNavigation } from "react-router-dom";
 
 export default function Root() {
-    const { contacts } = useLoaderData();  //we also can write in this format: const data = useLoaderData();
+    const { contacts, q } = useLoaderData();  //we also can write in this format: const data = useLoaderData();
     const navigation = useNavigation();
     const navigate = useNavigate();
+
+    useEffect(() => {
+        document.getElementById("q").value = q;
+    }, [q]);
 
     return (
         <>
@@ -20,6 +25,7 @@ export default function Root() {
                             placeholder="Search"
                             type="search"
                             name="q"
+                            defaultValue={q}
                         />
                         <div
                             id="search-spinner"
