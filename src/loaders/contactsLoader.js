@@ -1,11 +1,13 @@
 import localforage from "localforage";
 import { getContact, getContacts } from "../contacts";
 
-export async function getContactsLoader() {
+export async function getContactsLoader({request}) {
   // For clearing previous data
   // localforage.clear();
 
-  const contacts = await getContacts();
+  const url = new URL(request.url);
+  const q = url.searchParams.get("q");
+  const contacts = await getContacts(q);
   return { contacts };
 }
 
