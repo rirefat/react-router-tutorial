@@ -1,14 +1,17 @@
 import { useEffect } from "react";
-import { Form, Link, NavLink, Outlet, useLoaderData, useNavigate, useNavigation } from "react-router-dom";
+import { Form, Link, NavLink, Outlet, useLoaderData, useNavigate, useNavigation, useSubmit } from "react-router-dom";
 
 export default function Root() {
     const { contacts, q } = useLoaderData();  //we also can write in this format: const data = useLoaderData();
     const navigation = useNavigation();
     const navigate = useNavigate();
+    const submit = useSubmit();
 
     useEffect(() => {
         document.getElementById("q").value = q;
     }, [q]);
+
+    const searching = navigation.location && new URLSearchParams(navigation.location.search).has("q");
 
     return (
         <>
@@ -26,11 +29,13 @@ export default function Root() {
                             type="search"
                             name="q"
                             defaultValue={q}
+                            onChange={(event)=>submit(event.currentTarget.form)}
+                            className={searching && "loading"}
                         />
                         <div
                             id="search-spinner"
                             aria-hidden
-                            hidden={true}
+                            hidden={!searching}
                         />
                         <div
                             className="sr-only"
