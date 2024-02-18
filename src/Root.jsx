@@ -1,13 +1,17 @@
-import { Form, Link, NavLink, Outlet, useLoaderData, useNavigation } from "react-router-dom";
+import { Form, Link, NavLink, Outlet, useLoaderData, useNavigate, useNavigation } from "react-router-dom";
 
 export default function Root() {
     const { contacts } = useLoaderData();  //we also can write in this format: const data = useLoaderData();
     const navigation = useNavigation();
+    const navigate = useNavigate();
 
     return (
         <>
             <div id="sidebar">
-                <h1>React Router Contacts</h1>
+                <h1
+                    onClick={() => navigate('/')}
+                    style={{ cursor: "pointer" }}
+                >React Router Contacts</h1>
                 <div>
                     <form id="search-form" role="search">
                         <input

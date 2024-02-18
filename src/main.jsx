@@ -8,6 +8,7 @@ import Contact from './Contact'
 import { getContactLoader, getContactsLoader } from './loaders/contactsLoader'
 import { createContactAction, deleteContactAction, editContactAction } from './actions/contactsAction'
 import EditContact from './EditContact'
+import Index from '.'
 
 const router = createBrowserRouter([
   {
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
     loader: getContactsLoader,
     action: createContactAction,
     children: [
+      {
+        index:true,
+        element: <Index/>
+      },
       {
         path: "/contacts/:contactId",
         element: <Contact />,
